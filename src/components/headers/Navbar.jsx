@@ -19,7 +19,7 @@ const theme = createTheme({
   },
 });
 const Navbar = () => {
-  const [navBg, setNavBg] = useState("bg-[#15151580");
+  const [navBg, setNavBg] = useState("bg-[#15151580]");
   const navigate = useNavigate();
   const location = useLocation();
   const [isMonileMenuOpen, setIsMonileMenuOpen] = useState(false);
@@ -87,27 +87,40 @@ const Navbar = () => {
 
   return (
     <motion.nav
-    initial={{opacity:0}}
-    animate={{opacity:1}}
-    transition={{duration:0.5}}
-      className={`${
-        isHome ? navBg : "bg-white dark:bg-white backdrop-blur-2xl"
-      }${isFixed ? "static" : "fixed "}top-0 transition-colors ease-in-out w-full z-10` }
-    >
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.5 }}
+  className={`${isHome ? navBg : "bg-white dark:bg-white backdrop-blur-2xl"
+  } ${isFixed ? "static" : "fixed"} top-0 transition-colors ease-in-out w-full z-10`}
+>
+
       <div className="lg:w-[95%] mx-auto sm:px-6 lg:px-6">
         <div className="flex px-4 py-4 items-center justify-between">
           {/* Logo */}
-          <div onClick={()=>navigate('/')} className="flex-shrink-0 cursor-pointer pl-7 md:p-0 flex items-center">
+          <div
+            onClick={() => navigate("/")}
+            className="flex-shrink-0 cursor-pointer pl-7 md:p-0 flex items-center"
+          >
             <div>
-            <h1 className={`text-xl inline-flex gap-3 font-bold ${isDarkMode ? 'text-white' : 'text-black'}`}>
-              Edu Hub
-              <img
-                src="https://i.ibb.co/xMZHkhf/eduhub-logo.png"
-                alt=""
-                className="h-8 w-8"
-              />
-            </h1>
-            <p className={`font-bold text-[13px] tracking-[3px] ${isDarkMode ? 'text-white' : 'text-black'}`}>Home School</p>
+              <h1
+                className={`text-xl inline-flex gap-3 font-bold ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
+                Edu Hub
+                <img
+                  src="https://i.ibb.co/xMZHkhf/eduhub-logo.png"
+                  alt=""
+                  className="h-8 w-8"
+                />
+              </h1>
+              <p
+                className={`font-bold text-[13px] tracking-[3px] ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
+                Home School
+              </p>
             </div>
           </div>
           {/* moble menu icons */}
@@ -128,7 +141,7 @@ const Navbar = () => {
                   <li key={link.route}>
                     <NavLink
                       to={link.route}
-                      style={{whiteSpace:"nowrap"}}
+                      style={{ whiteSpace: "nowrap" }}
                       className={({ isActive }) =>
                         `font-bold ${
                           isActive
