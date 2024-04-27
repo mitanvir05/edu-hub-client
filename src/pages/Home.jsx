@@ -2,6 +2,7 @@ import React from 'react';
 import HeroContainer from './Home/Hero/HeroContainer';
 import Gallary from './Home/Gallary/Gallary';
 import PopularClasses from './Home/PopularClasses/PopularClasses';
+import PopularTeacher from './Home/PopularTeacher/PopularTeacher';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
             <div className='max-w-screen-xl mx-auto'>
                 <Gallary/>
                 <PopularClasses/>
+                <PopularTeacher/>
             </div>
         </section>
     );
