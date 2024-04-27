@@ -9,10 +9,10 @@ import Hero2 from "./Hero2";
 
 const HeroContainer = () => {
   return (
-    <section>
+    <section >
       <Swiper 
      grabCursor={true}
-     effect={"creative"}
+     
      creativeEffect={{
         prev:{
             shadow:true,
@@ -28,7 +28,7 @@ const HeroContainer = () => {
      className="mySwiper5"
      loop={true}
      autoplay={{
-        delay:250,
+        delay:2500,
         disableOnInteraction:false,
      }}
 
