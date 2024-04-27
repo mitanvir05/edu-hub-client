@@ -22,9 +22,9 @@ const Hero = () => {
               eaque ipsa tenetur?
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-5 mt-6">
-            <button className="px-7 py-3 rounded-lg font-bold bg-secondary">Join Today </button>
-            <button className="px-7 py-3 rounded-lg hover:bg-secondary font-bold uppercase border mb-5">View Courses</button>
+          <div className="flex flex-wrap items-center gap-5 mt-6 mb-3">
+            <button className="px-7 py-3 rounded-lg font-bold bg-secondary  ">Join Today </button>
+            <button className="px-7 py-3 rounded-lg hover:bg-secondary font-bold uppercase border ">View Courses</button>
           </div>
         </div>
       </div>
