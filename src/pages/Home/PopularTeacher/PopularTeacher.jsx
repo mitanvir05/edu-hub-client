@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAxiosFetch from "../../../hooks/useAxiosFetch";
 import img from "../../../assets/image/default profile.png";
+import { FaLinkedin } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 
 const PopularTeacher = () => {
   const [instructors, setInstructors] = useState([]);
@@ -54,6 +56,10 @@ const PopularTeacher = () => {
                     </p>
                   </div>
                 </div>
+                <div className=' flex justify-center gap-5'>
+                    <p><FaLinkedin className='text-secondary' size={25}/></p>
+                    <p><SiGmail className='text-secondary' size={25}/></p>
+                  </div>
               </div>
             ))}
           </div>
