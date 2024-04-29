@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useAxiosFetch from "../../hooks/useAxiosFetch";
 import { Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import  { AuthContext } from "../../utilities/Providers/AuthProvider";
 const Classes = () => {
   const [classes, setClasses] = useState([]);
   const [hoveredCard, setHoverCard] = useState(null);
   const axiosFetch = useAxiosFetch();
+
+const{user}=useContext(AuthContext)
+console.log(user)
+
   const handleHover = (index) => {
     setHoverCard(index);
   };
@@ -16,7 +21,7 @@ const Classes = () => {
       .then((res) => setClasses(res.data))
       .catch((err) => console.log(err));
   }, []);
-  console.log(classes);
+  //console.log(classes);
   return (
     <div>
       <div className="mt-20 pt-6">
@@ -66,16 +71,16 @@ const Classes = () => {
             <div>
               {/* details */}
               <div className="px-6 py-2">
-                <h3 className="font-semibold mb-2">{cls.name}</h3>
-                <p className="text-gray-400 mb-5">
+                <h3 className="font-semibold mb-2 dark:text-white">{cls.name}</h3>
+                <p className="text-gray-400 mb-5 dark:text-white">
                   Instructor : {cls.instructorName}
                 </p>
 
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-gray-600 text-xs ">
+                  <span className="text-gray-600 text-xs dark:text-white">
                     Aavailable Seat: {cls.availableSeats}
                   </span>
-                  <span className="text-green-600 font-semibold">
+                  <span className="text-green-600 font-semibold dark:text-white">
                     ${cls.price}
                   </span>
                 </div>

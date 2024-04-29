@@ -20,7 +20,7 @@ const PopularTeacher = () => {
   return (
     <div className="md:w-[80%] mx-auto my-36">
       <div>
-        <h1 className="text-5xl font-bold text-center">
+        <h1 className="text-5xl font-bold text-center dark:text-white">
           Our <span className="text-secondary">Amazing</span> Instructors
         </h1>
         <div className="w-[40%] text-center mx-auto my-4">
@@ -37,7 +37,7 @@ const PopularTeacher = () => {
         <>
           <div className="grid mb-28 md:grid-cols-2 lg:grid-cols-4 w-[90%] mx-auto">
             {instructors?.map((instructor, i) => (
-              <div className="flex ml-3 dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md">
+              <div key={i} className="flex ml-3 dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md">
                 <div className="flex-col flex gap-6 md:gap-8">
                   <img
                     className="rounded-full  border-4 border-gray-400 h-24 w-24 mx-auto"

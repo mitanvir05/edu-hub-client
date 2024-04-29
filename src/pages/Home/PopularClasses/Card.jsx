@@ -18,11 +18,11 @@ const Card = ({ item }) => {
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2 dark:text-white">{name}</h2>
 
-        <p className="text-black text-base">
+        <p className="text-black text-base dark:text-white">
           Available Seats : {availableSeats}
         </p>
-        <p className="text-black text-base">Total Students : {totalEnrolled}</p>
-        <p className="text-black text-base">Price : ${price}</p>
+        <p className="text-black dark:text-white text-base">Total Students : {totalEnrolled}</p>
+        <p className="text-black dark:text-white text-base">Price : ${price}</p>
         <div className="text-center px-2 py-2 rounded-md w-full bg-secondary text-white mt-2 font-bold">
           <Link to={`/classes/${_id}`}>
             Select
