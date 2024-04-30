@@ -66,16 +66,31 @@ const AuthProvider = ({ children }) => {
   };
 
   //google login
-  const googlrProvider = new GoogleAuthProvider();
-  const googleLogin = async () => {
-    try {
-      setLoader(true);
-      await signInWithPopup(auth, googlrProvider);
-    } catch (error) {
-      setError(error.code);
-      throw error;
-    }
-  };
+  // const googleProvider = new GoogleAuthProvider();
+  // const googleLogin = async () => {
+  //   try {
+  //     setLoader(true);
+  //     await signInWithPopup(auth, googleProvider);
+  //   } catch (error) {
+  //     setError(error.code);
+  //     throw error;
+  //   }
+  // };
+
+  const googleProvider = new GoogleAuthProvider();
+const googleLogin = async () => {
+  try {
+    setLoader(true);
+    const userCredential = await signInWithPopup(auth, googleProvider);
+    return userCredential;
+  } catch (error) {
+    setError(error.code);
+    console.error("Google login error:", error.message);
+    throw error;
+  } finally {
+    setLoader(false);
+  }
+};
 
   //observeer for user
 

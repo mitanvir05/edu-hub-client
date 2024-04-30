@@ -10,7 +10,7 @@ const Card = ({ item }) => {
     availableSeats,
     totalEnrolled,
   } = item;
-  console.log(item);
+  //console.log(item);
 
   return (
     <div className="shadow-lg rounded-lg p-3 flex flex-col justify-between border border-secondary overflow-hidden m-4">

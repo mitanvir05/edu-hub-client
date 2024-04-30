@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../utilities/Providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +12,15 @@ const useAxiosSecure = () => {
     baseURL: "http://localhost:3000",
   });
   useEffect(() => {
-    // add req interceptor
-    const requestInceptor = axiosSecure.interceptors.use((config) => {
+    // Add request interceptor
+    const requestInterceptor = axiosSecure.interceptors.request.use((config) => {
       const token = localStorage.getItem("token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     });
-    // res interceptors
+    // Add response interceptor
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (response) => response,
       async (error) => {
@@ -34,12 +35,16 @@ const useAxiosSecure = () => {
         throw error;
       }
     );
+
+    // Cleanup function
     return () => {
-      axiosSecure.interceptors.request.eject(requestInceptor);
+      axiosSecure.interceptors.request.eject(requestInterceptor);
       axiosSecure.interceptors.response.eject(responseInterceptor);
     };
   }, [logout, navigate, axiosSecure]);
+
   return axiosSecure;
 };
 
 export default useAxiosSecure;
+

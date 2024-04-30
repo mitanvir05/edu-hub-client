@@ -2,14 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import useAxiosFetch from "../../hooks/useAxiosFetch";
 import { Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import  { AuthContext } from "../../utilities/Providers/AuthProvider";
+import useUser from "../../hooks/useUser";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast, ToastContainer } from 'react-toastify';
+
+
 const Classes = () => {
   const [classes, setClasses] = useState([]);
+  const { currentUser } = useUser();
+  const role = currentUser?.role;
+  const [enrolledClasses, setEnrolledClasses] = useState([]);
   const [hoveredCard, setHoverCard] = useState(null);
   const axiosFetch = useAxiosFetch();
 
-const{user}=useContext(AuthContext)
-console.log(user)
+  const axiosSecure = useAxiosSecure();
 
   const handleHover = (index) => {
     setHoverCard(index);
@@ -21,6 +27,47 @@ console.log(user)
       .then((res) => setClasses(res.data))
       .catch((err) => console.log(err));
   }, []);
+
+  const handleSelected = (id) => {
+    console.log(id);
+    axiosSecure.get(`/enrolled-classes/${currentUser?.email}`)
+    .then(res=>setEnrolledClasses(res.data)).catch((err) => console.log(err));
+    if(!currentUser){
+      return toast.error("Please Login")
+    }
+    axiosSecure.get(`/cart-item/${id}?email=${currentUser?.email}`)
+    .then(res=>{
+      if(res.data.classId===id){
+        return toast.error("Already selected")
+      }else if(enrolledClasses.find(item=>item.classes._id ===id)){
+        return toast.error("Already enrolled")
+      }else{
+        const data = {
+          classId: id,
+          userMail: currentUser?.email,
+          data:new Date()
+        }
+        toast.promise(axiosSecure.post("/add-to-cart",data))
+        .then(res=>{
+          console.log(res.data)
+        }),
+        {
+          pending:"Selecting...",
+          success: {
+            render({data}){
+              return "Selected Succesfully"
+            }
+          },
+          error:{
+            render({data}){
+              return `Error: ${data.message}`
+            }
+          }
+
+        }
+      }
+    })
+  };
   //console.log(classes);
   return (
     <div>
@@ -60,6 +107,19 @@ console.log(user)
               >
                 <div className="absolute inset-0 flex items-center justify-center">
                   <button
+                    onClick={() => handleSelected(cls._id)}
+                    title={
+                      role === "admin" || role === "instructor"
+                        ? "Instructor/Admin Cant be able to select"
+                          ? cls.availableSeats < 1
+                          : "No Seat Aavaiable"
+                        : "You can select classes"
+                    }
+                    disabled={
+                      role === "admin" ||
+                      role === "instructor" ||
+                      cls.availableSeats < 1
+                    }
                     className="px-4 py-2 text-white disabled:bg-red-400 
                   bg-secondary duration-300 rounded-md hover:bg-red-700"
                   >
@@ -71,7 +131,9 @@ console.log(user)
             <div>
               {/* details */}
               <div className="px-6 py-2">
-                <h3 className="font-semibold mb-2 dark:text-white">{cls.name}</h3>
+                <h3 className="font-semibold mb-2 dark:text-white">
+                  {cls.name}
+                </h3>
                 <p className="text-gray-400 mb-5 dark:text-white">
                   Instructor : {cls.instructorName}
                 </p>
@@ -85,8 +147,10 @@ console.log(user)
                   </span>
                 </div>
                 <Link to={`/class/${cls._id}`}>
-                  <button className="px-4 py-2 mt-4 mb-1 w-full mx-auto text-white
-                   disabled:bg-red-400  bg-secondary duration-300 rounded-md hover:bg-red-600">
+                  <button
+                    className="px-4 py-2 mt-4 mb-1 w-full mx-auto text-white
+                   disabled:bg-red-400  bg-secondary duration-300 rounded-md hover:bg-red-600"
+                  >
                     View
                   </button>
                 </Link>
