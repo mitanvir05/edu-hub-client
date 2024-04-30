@@ -5,7 +5,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../components/headers/Social/GoogleLogin";
 import useAuth from "../../hooks/useAuth";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
@@ -15,12 +14,13 @@ const Login = () => {
     setError("");
     e.preventDefault();
     const data = new FormData(e.target);
-    const formData = Object.fromEntries(data)
-     console.log(formData);
+    const formData = Object.fromEntries(data);
+    console.log(formData);
     login(formData.email, formData.password)
+
       .then(() => {
-        // navigate(location.state?.form || "/dashboard");
-        navigate("/")
+        alert("Login successful")
+         navigate(location.state?.form || "/dashboard");
       })
       .catch((err) => {
         setError(err.code);
