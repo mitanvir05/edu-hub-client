@@ -3,12 +3,12 @@ import { app } from "../../config/firebase.config";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   signOut,
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
-  onAuthStateChanged,
+  signInWithEmailAndPassword,
+
   
 } from "firebase/auth";
 import axios from "axios";
@@ -41,6 +41,7 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
+  
   //logout user
   const logout = async () => {
     try {

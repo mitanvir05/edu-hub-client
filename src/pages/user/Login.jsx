@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../components/headers/Social/GoogleLogin";
 import useAuth from "../../hooks/useAuth";
 
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
@@ -14,11 +15,12 @@ const Login = () => {
     setError("");
     e.preventDefault();
     const data = new FormData(e.target);
-    const formData = Object.fromEntries(data);
-    // console.log(formData);
+    const formData = Object.fromEntries(data)
+     console.log(formData);
     login(formData.email, formData.password)
       .then(() => {
-        navigate(location.state?.form || "/dashboard");
+        // navigate(location.state?.form || "/dashboard");
+        navigate("/")
       })
       .catch((err) => {
         setError(err.code);
@@ -47,7 +49,7 @@ const Login = () => {
             <div className="relative">
               <input
                 type="email"
-                name="email "
+                name="email"
                 placeholder="Enter Email"
                 className="w-full border outline-none rounded-lg border-gray-300 pe-12 p-4 text-sm shadow-sm"
               />
