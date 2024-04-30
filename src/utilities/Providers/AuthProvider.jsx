@@ -127,6 +127,8 @@ const googleLogin = async () => {
     googleLogin,
     error,
     setError,
+    loader,
+    setLoader
   };
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

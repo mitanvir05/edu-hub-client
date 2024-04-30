@@ -12,7 +12,7 @@ const GoogleLogin = () => {
     googleLogin()
       .then((userCrendential) => {
         const user = userCrendential.user;
-        console.log(user);
+        //console.log(user);
 
         if (user) {
           const userImp = {
