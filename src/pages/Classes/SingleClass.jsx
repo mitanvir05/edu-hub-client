@@ -94,11 +94,11 @@ const { currentUser } = useUser();
 
   return (
     <>
-      <div className="font-medium max-w-screen-2xl text-gray-800 dark:text-white text-lg leading-[27px] w-90% mx-auto">
+      <div className="font-medium max-w-screen-2xl p-2 text-gray-800 dark:text-white text-lg leading-[27px] w-90% mx-auto">
         {/* Course details */}
-        <div className="bg-primary py-20 mt-20 section-padding bg-cover bg-no-repeat ">
+        <div className="bg-secondary text-white py-10 mt-20 section-padding bg-cover bg-no-repeat ">
           <div className="text-center">
-            <h1> Course Details</h1>
+            <h1 className="text-3xl"> Course Details</h1>
           </div>
         </div>
       </div>
@@ -107,20 +107,20 @@ const { currentUser } = useUser();
         <div className=" md:w-1/2 ">
           {/* Content for the first portion */}
           <div>
-            <img className="w-full" src={image} />
+            <img className="w-full p-4" src={image} />
             <p className="text-4xl font-semibold px-2 py-5 mt-5">{name}</p>
           </div>
-          <div>
+          <div className="p-2">
             <p className="text-lg text-gray-700">
-              <span className="font-semibold">Instructor Name:</span>{" "}
+              <span className="font-semibold">Instructor Name:</span>
               {instructorName}
             </p>
             <p className="text-lg text-gray-700">
-              <span className="font-semibold">Instructor Email:</span>{" "}
+              <span className="font-semibold">Instructor Email:</span>
               {instructorEmail}
             </p>
           </div>
-          <div>
+          <div className="p-2">
             <p className="text-lg text-gray-700">
               <span className="font-semibold">Description:</span> {description}
             </p>
@@ -129,7 +129,7 @@ const { currentUser } = useUser();
         <div className=" md:w-1/2">
           {/* Content for the second portion */}
           <div className="p-2">
-            <video controls className="w-full mx-auto">
+            <video controls className="w-full mx-auto p-2">
               <source src='youtube.com/feed' type="video/mp4" />
               Your browser does not support the video .
             </video>
