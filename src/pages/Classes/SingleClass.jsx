@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { MdOutlinePriceChange } from "react-icons/md";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { MdEventAvailable } from "react-icons/md";
@@ -46,14 +46,16 @@ const { currentUser } = useUser();
 
 
 
-
   const handleEnroll = async (id) => {
     console.log("Enrolling for class with ID:", id);
     
     // Check if currentUser exists
     if (!currentUser) {
+     
+      
       console.log("User not logged in.");
       return toast.error("Please Login");
+      
     }
   
     try {

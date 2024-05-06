@@ -6,7 +6,7 @@ import { BiHome, BiHomeAlt, BiLogInCircle } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import { BsFillPostcardFill } from "react-icons/bs";
 import { TbBrandAppleArcade } from "react-icons/tb";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { IoMdTrendingUp } from "react-icons/io";
 import { BsBrowserChrome } from "react-icons/bs";
 import Swal from "sweetalert2";
@@ -18,6 +18,8 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { BiSelectMultiple } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { SiInstructure } from "react-icons/si";
+import Scroll from "../hooks/useScroll";
+import { FadeLoader } from "react-spinners";
 
 const adminNavItems = [
   {
@@ -115,7 +117,7 @@ const lastMenuItem = [
   {
     to: "/browse",
     icon: <BsBrowserChrome className="text-2xl" />,
-    label: "browse",
+    label: "Browse",
   },
 ];
 const DashboardLayout = () => {
@@ -123,7 +125,7 @@ const DashboardLayout = () => {
   const { loader, logout } = useAuth();
   const { currentUser } = useUser();
   const navigate = useNavigate();
-  //const role = currentUser?.role;
+  const role = currentUser?.role;
 
   const handleLogout = () => {
     Swal.fire({
@@ -151,9 +153,17 @@ const DashboardLayout = () => {
       navigate("/");
     });
   };
-  const role = "instructor";
+  //const role = "instructor";
+  // if (loader) {
+  //   return <div>Loading .....</div>;
+  // }
+
   if (loader) {
-    return <div>Loading .....</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <FadeLoader color="#36d7b7" size={50} />
+      </div>
+    );
   }
   return (
     <div className="flex ">
@@ -171,13 +181,15 @@ const DashboardLayout = () => {
               open && "rotate-[360deg]"
             }`}
           />
-          <h1
-            onClick={() => setOpen(!open)}
-            className={`text-dark-primary cursor-pointer 
+          <Link to="/">
+            <h1
+              onClick={() => setOpen(!open)}
+              className={`text-dark-primary cursor-pointer 
         font-bold origin-left text-xl duration-200 ${!open && "scale-0"} `}
-          >
-            Edu Hub
-          </h1>
+            >
+              Edu Hub
+            </h1>
+          </Link>
         </div>
         {/* navlink */}
         {/* Admin nav */}
@@ -216,28 +228,25 @@ const DashboardLayout = () => {
             <p className={`ml-3 text-gray-600 ${!open && "hidden"}`}>
               <small className="uppercase">Menu</small>
             </p>
-            {
-              instructorNavItems.map((menuItem, index) => (
-                <li key={index}>
-                  <NavLink
-                    to={menuItem.to}
-                    className={({ isActive }) =>
-                      `flex ${
-                        isActive ? "bg-red-500 text-white" : "text-gray-700"
-                      }duration-150 rounded-md p-2 mb-2 hover:bg-secondary hover:text-white font-bold text-sm items-center gap-x-4`
-                    }
+            {instructorNavItems.map((menuItem, index) => (
+              <li key={index}>
+                <NavLink
+                  to={menuItem.to}
+                  className={({ isActive }) =>
+                    `flex ${
+                      isActive ? "bg-red-500 text-white" : "text-gray-700"
+                    }duration-150 rounded-md p-2 mb-2 hover:bg-secondary hover:text-white font-bold text-sm items-center gap-x-4`
+                  }
+                >
+                  {menuItem.icon}
+                  <span
+                    className={`${!open && "hidden"} origin-left duration-200`}
                   >
-                    {menuItem.icon}
-                    <span
-                      className={`${
-                        !open && "hidden"
-                      } origin-left duration-200`}
-                    >
-                      {menuItem.label}
-                    </span>
-                  </NavLink>
-                </li>
-              ))}
+                    {menuItem.label}
+                  </span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         )}
 
@@ -247,28 +256,25 @@ const DashboardLayout = () => {
             <p className={`ml-3 text-gray-600 ${!open && "hidden"}`}>
               <small className="uppercase">Menu</small>
             </p>
-            {
-              students.map((menuItem, index) => (
-                <li key={index}>
-                  <NavLink
-                    to={menuItem.to}
-                    className={({ isActive }) =>
-                      `flex ${
-                        isActive ? "bg-red-500 text-white" : "text-gray-700"
-                      }duration-150 rounded-md p-2 mb-2 hover:bg-secondary hover:text-white font-bold text-sm items-center gap-x-4`
-                    }
+            {students.map((menuItem, index) => (
+              <li key={index}>
+                <NavLink
+                  to={menuItem.to}
+                  className={({ isActive }) =>
+                    `flex ${
+                      isActive ? "bg-red-500 text-white" : "text-gray-700"
+                    }duration-150 rounded-md p-2 mb-2 hover:bg-secondary hover:text-white font-bold text-sm items-center gap-x-4`
+                  }
+                >
+                  {menuItem.icon}
+                  <span
+                    className={`${!open && "hidden"} origin-left duration-200`}
                   >
-                    {menuItem.icon}
-                    <span
-                      className={`${
-                        !open && "hidden"
-                      } origin-left duration-200`}
-                    >
-                      {menuItem.label}
-                    </span>
-                  </NavLink>
-                </li>
-              ))}
+                    {menuItem.label}
+                  </span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         )}
         {/* Last menu item */}
@@ -308,6 +314,11 @@ const DashboardLayout = () => {
             </button>
           </li>
         </ul>
+      </div>
+
+      <div>
+        <Scroll />
+        <Outlet />
       </div>
     </div>
   );

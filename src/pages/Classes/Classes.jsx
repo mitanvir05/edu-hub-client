@@ -2,10 +2,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import useAxiosFetch from "../../hooks/useAxiosFetch";
 import { Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast,ToastContainer } from 'react-toastify';
+import Swal from "sweetalert2";
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
@@ -15,6 +16,7 @@ const Classes = () => {
   const [enrolledClasses, setEnrolledClasses] = useState([]);
   const [hoveredCard, setHoverCard] = useState(null);
   const axiosFetch = useAxiosFetch();
+  const  navigate  = useNavigate();
 
   const axiosSecure = useAxiosSecure();
 
@@ -32,7 +34,26 @@ const Classes = () => {
   const handleSelected = async (id) => {
     console.log(id);
     if (!currentUser) {
-      return toast.error("Please Login");
+       Swal.fire({
+        title: "Please Login",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+      navigate('/login')
+     
+      
     }
   
     try {
