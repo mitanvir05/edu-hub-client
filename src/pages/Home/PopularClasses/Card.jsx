@@ -24,7 +24,7 @@ const Card = ({ item }) => {
         <p className="text-black dark:text-white text-base">Total Students : {totalEnrolled}</p>
         <p className="text-black dark:text-white text-base">Price : ${price}</p>
         <div className="text-center px-2 py-2 rounded-md w-full bg-secondary text-white mt-2 font-bold">
-          <Link to={`/classes/${_id}`}>
+          <Link to={`/class/${_id}`}>
             Select
           </Link>
         </div>
