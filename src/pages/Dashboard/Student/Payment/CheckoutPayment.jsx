@@ -1,13 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useUser from "../../../../hooks/useUser";
 import { Navigate } from "react-router-dom";
+
 const CheckoutPayment = ({ price, cartItem }) => {
-  const URL = `http://localhost:3000/payment-info?${
-    cartItem && `classId=${cartItem}`
-  }`;
+  const URL = `http://localhost:3000/payment-info?${cartItem && `classId=${cartItem}`}`;
 
   const stripe = useStripe();
   const elements = useElements();
@@ -21,6 +19,7 @@ const CheckoutPayment = ({ price, cartItem }) => {
   if (price < 0 || !price) {
     return <Navigate to="dashboard/my-selected" replace />;
   }
+
   useEffect(() => {
     axiosSecure
       .get(`/cart/${currentUser?.email}`)
@@ -32,7 +31,6 @@ const CheckoutPayment = ({ price, cartItem }) => {
         console.log(err);
       });
   }, []);
-  //   console.log(cart)
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { price: price }).then((res) => {
@@ -40,6 +38,7 @@ const CheckoutPayment = ({ price, cartItem }) => {
       setClientSecret(res.data.clientSecret);
     });
   }, []);
+
   const handleSubmit = async (event) => {
     setMessage("");
     event.preventDefault();
@@ -60,16 +59,15 @@ const CheckoutPayment = ({ price, cartItem }) => {
     } else {
       console.log("[paymentMethod]", paymentMethod);
     }
-    const { paymentIntent, error: confirmError } =
-      await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            name: currentUser?.displayName || "unknown",
-            email: currentUser?.email || "Anonymous",
-          },
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: currentUser?.displayName || "unknown",
+          email: currentUser?.email || "Anonymous",
         },
-      });
+      },
+    });
     if (confirmError) {
       console.log("[confirmError]", confirmError);
     } else {
@@ -94,29 +92,37 @@ const CheckoutPayment = ({ price, cartItem }) => {
           classesId: cartItem ? [cartItem] : cart,
           date: new Date(),
         };
-        // console.log(data)
+        
         fetch(URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer${localStorage.getItem("token")}`,
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(data),
         })
-          .then((res) => res.json())
-          .then((res) => {
-            console.log(res);
-            if (
-              res.deletedResult.deletedCount > 0 &&
-              res.paymentResult.insertedId &&
-              res.updatedResult.modifiedCount > 0
-            ) {
-              setSucceeded("Payment Successful, You Can Access Your Classes.");
-            } else {
-              setSucceeded("Payment Failed, Please Try Again.");
-            }
-          })
-          .catch((err) => console.log(err));
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return res.json();
+        })
+        .then((res) => {
+          console.log(res);
+          if (
+            res.deletedResult?.deletedCount > 0 &&
+            res.paymentResult?.insertedId &&
+            res.updatedResult?.modifiedCount > 0
+          ) {
+            setSucceeded("Payment Successful, You Can Access Your Classes.");
+          } else {
+            setSucceeded("Payment Failed, Please Try Again.");
+          }
+        })
+        .catch((err) => {
+          console.error('Fetch error:', err);
+          // Handle the error here (e.g., set error message state)
+        });
       }
     }
   };
