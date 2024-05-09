@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useUser from "../../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 const KEY = import.meta.env.VITE_IMG_TOKEN;
 const AddClass = () => {
   const API_URL = `https://api.imgbb.com/1/upload?key=${KEY}&name=`;
   const axiosSecure = useAxiosSecure();
   const { currentUser, isLoading } = useUser();
   const [image, setImage] = useState(null);
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ const AddClass = () => {
             alert("Succefully added new courses")
             
             console.log(res.data)
+            navigate("/dashboard/my-class")
             e.target.reset();
           })
 
