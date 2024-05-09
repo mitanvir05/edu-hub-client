@@ -50,7 +50,7 @@ const navigate =useNavigate()
   return (
     <div className="my-20">
       <div>
-        {sumittedData?.name && (
+        {!sumittedData?.name && (
           <div className="md:w-1/2 p-5">
             <form onSubmit={onSubmit}>
               <div className=" w-full flex">

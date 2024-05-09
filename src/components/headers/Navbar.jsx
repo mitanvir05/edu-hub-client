@@ -1,8 +1,10 @@
 import { Switch, ThemeProvider, createTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { AuthContext } from "../../utilities/Providers/AuthProvider";
+import Swal from "sweetalert2";
 const navLinks = [
   { name: "Home", route: "/" },
   { name: "Instructors", route: "/instructors" },
@@ -28,7 +30,8 @@ const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isFixed, setIsFixed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const user = true;
+
+  const { logout, user } = useContext(AuthContext);
 
   const toggleMobileMenu = () => {
     setIsMonileMenuOpen(!isMonileMenuOpen);
@@ -81,19 +84,45 @@ const Navbar = () => {
     }
   }, [scrollPosition]);
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     console.log("Logout");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+          .then(() => {
+            Swal.fire({
+              title: "Logged out!",
+              text: "Logout Successful.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire("Error", err.message, "error");
+          });
+      }
+    });
   };
 
   return (
     <motion.nav
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.5 }}
-  className={`${isHome ? navBg : "bg-white dark:bg-white backdrop-blur-2xl"
-  } ${isFixed ? "static" : "fixed"} top-0 transition-colors ease-in-out w-full z-10`}
->
-
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={`${
+        isHome ? navBg : "bg-white dark:bg-white backdrop-blur-2xl"
+      } ${
+        isFixed ? "static" : "fixed"
+      } top-0 transition-colors ease-in-out w-full z-10`}
+    >
       <div className="lg:w-[95%] mx-auto sm:px-6 lg:px-6">
         <div className="flex px-4 py-4 items-center justify-between">
           {/* Logo */}

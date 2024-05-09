@@ -24,12 +24,23 @@ const Classes = () => {
     setHoverCard(index);
   };
 
+  // useEffect(() => {
+  //   axiosFetch
+  //     .get("/classes")
+  //     .then((res) => setClasses(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
   useEffect(() => {
     axiosFetch
       .get("/classes")
-      .then((res) => setClasses(res.data))
+      .then((res) => {
+        // Filter classes with status 'approved'
+        const approvedClasses = res.data.filter(cls => cls.status === 'approved');
+        setClasses(approvedClasses);
+      })
       .catch((err) => console.log(err));
   }, []);
+  
 
   const handleSelected = async (id) => {
     console.log(id);
