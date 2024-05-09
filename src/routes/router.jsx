@@ -17,6 +17,8 @@ import Payment from "../pages/Dashboard/Student/Payment/Payment";
 import InstructorCp from "../pages/Dashboard/Instructor/InstructorCp";
 import AddClass from "../pages/Dashboard/Instructor/AddClass";
 import MyClass from "../pages/Dashboard/Instructor/MyClass";
+import PendingClass from "../pages/Dashboard/Instructor/PendingClass";
+import ApprovedClass from "../pages/Dashboard/Instructor/ApprovedClass";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +106,16 @@ const router = createBrowserRouter([
       {
         path:"my-class",
         element:<MyClass/>
+
+      },
+      {
+        path:"my-pending",
+        element:<PendingClass/>
+
+      },
+      {
+        path:"my-approved",
+        element:<ApprovedClass/>
 
       },
 
