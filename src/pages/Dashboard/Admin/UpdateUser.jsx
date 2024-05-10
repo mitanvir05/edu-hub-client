@@ -29,10 +29,10 @@ const UpdateUser = () => {
   };
   return (
     <div>
-      <h1 className="text-center text-4xl font-boldmt-5">
-        Update : {user?.displayName}
+      <h1 className="text-center text-4xl font-bold mt-5">
+      Change Details About : <span className="text-secondary">{userCredentials?.name}</span>
       </h1>
-      <p>Change Details About : {userCredentials?.name}</p>
+      <p className="text-center font-bold">Current Role : <span className="text-secondary">{userCredentials?.role}</span></p>
       <section>
         <div className="mx-auto py-16 sm:px-8">
           <div className="rounded-lg bg-white p-8 shadow-lg lg:p-12 ">

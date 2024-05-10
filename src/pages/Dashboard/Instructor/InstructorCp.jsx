@@ -4,7 +4,7 @@ const InstructorCp = () => {
     return (
         <div>
            <div className='h-screen'>
-            <img src={img} alt="" className='h-[100%] w-it' />
+            <img src={img} alt="" className='h-[100%] w-fit' />
            </div>
         </div>
     );

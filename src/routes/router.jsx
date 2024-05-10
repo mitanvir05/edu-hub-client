@@ -23,6 +23,7 @@ import AdminHome from "../pages/Dashboard/Admin/AdminHome";
 import ManageClasses from "../pages/Dashboard/Admin/ManageClasses";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import UpdateUser from "../pages/Dashboard/Admin/UpdateUser";
+import ManageApplication from "../pages/Dashboard/Admin/ManageApplication";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "manage-application",
+        element: <ManageApplication />,
       },
     
       {
