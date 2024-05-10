@@ -38,7 +38,7 @@ const ApprovedClass = () => {
             <div className="card-body">
               <h2 className="text-xl font-semibold">Course Name: {cls.name}</h2>
               <p className="text-gray-600 font-semibold">Description: {cls.description}</p>
-              <p className="text-gray-600 font-semibold">Status: <span className="text-secondary">{cls.status}</span></p>
+              <p className="text-gray-600 font-semibold">Status: <span className="text-green-500">{cls.status}</span></p>
               
             </div>
           </div>

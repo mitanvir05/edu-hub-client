@@ -19,6 +19,7 @@ import AddClass from "../pages/Dashboard/Instructor/AddClass";
 import MyClass from "../pages/Dashboard/Instructor/MyClass";
 import PendingClass from "../pages/Dashboard/Instructor/PendingClass";
 import ApprovedClass from "../pages/Dashboard/Instructor/ApprovedClass";
+import AdminHome from "../pages/Dashboard/Admin/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +117,13 @@ const router = createBrowserRouter([
       {
         path:"my-approved",
         element:<ApprovedClass/>
+
+      },
+
+      //admin
+      {
+        path:"admin-home",
+        element:<AdminHome/>
 
       },
 
