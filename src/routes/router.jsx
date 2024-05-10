@@ -20,6 +20,7 @@ import MyClass from "../pages/Dashboard/Instructor/MyClass";
 import PendingClass from "../pages/Dashboard/Instructor/PendingClass";
 import ApprovedClass from "../pages/Dashboard/Instructor/ApprovedClass";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome";
+import ManageClasses from "../pages/Dashboard/Admin/ManageClasses";
 
 const router = createBrowserRouter([
   {
@@ -57,77 +58,73 @@ const router = createBrowserRouter([
     ],
   },
 
-
   {
-    path:"/dashboard",
-    element:<DashboardLayout/>,
-    children:[
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
       {
-        index:true,
-        element:<Dashboard/>
+        index: true,
+        element: <Dashboard />,
       },
       //studnets routes
       {
-        path:"student-cp",
-        element:<StudentCP/>
+        path: "student-cp",
+        element: <StudentCP />,
       },
       {
-        path:"enrolled-class",
-        element:<EnrolledClasses/>
+        path: "enrolled-class",
+        element: <EnrolledClasses />,
       },
       {
-        path:"my-selected",
-        element:<SelectedClass/>
+        path: "my-selected",
+        element: <SelectedClass />,
       },
       {
-        path:"my-payments",
-        element:<MyPaymentHistory/>
+        path: "my-payments",
+        element: <MyPaymentHistory />,
       },
       {
-        path:"apply-instructor",
-        element:<AsInstructor/>
+        path: "apply-instructor",
+        element: <AsInstructor />,
       },
       {
-        path:"user/payment",
-        element:<Payment/>
+        path: "user/payment",
+        element: <Payment />,
       },
 
       //instructor
 
       {
-        path:"instructor-cp",
-        element:<InstructorCp/>
-
+        path: "instructor-cp",
+        element: <InstructorCp />,
       },
       {
-        path:"add-class",
-        element:<AddClass/>
-
+        path: "add-class",
+        element: <AddClass />,
       },
       {
-        path:"my-class",
-        element:<MyClass/>
-
+        path: "my-class",
+        element: <MyClass />,
       },
       {
-        path:"my-pending",
-        element:<PendingClass/>
-
+        path: "my-pending",
+        element: <PendingClass />,
       },
       {
-        path:"my-approved",
-        element:<ApprovedClass/>
-
+        path: "my-approved",
+        element: <ApprovedClass />,
       },
 
       //admin
       {
-        path:"admin-home",
-        element:<AdminHome/>
-
+        path: "admin-home",
+        element: <AdminHome />,
       },
-
-    ]
+      {
+        path: "manage-classes",
+        element: <ManageClasses />,
+      },
+    ],
   },
 ]);
 
