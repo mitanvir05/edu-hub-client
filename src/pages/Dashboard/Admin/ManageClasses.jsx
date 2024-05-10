@@ -143,9 +143,7 @@ const ManageClasses = () => {
                     >
                       Reject
                     </button>
-                    <button className="text-[12px] cursor-auto disabled:bg-green-500 bg-green-500 py-1 rounded-md px-2 text-white">
-                      Approve
-                    </button>
+                    
                   </td>
                 </tr>
               );

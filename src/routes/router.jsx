@@ -21,6 +21,8 @@ import PendingClass from "../pages/Dashboard/Instructor/PendingClass";
 import ApprovedClass from "../pages/Dashboard/Instructor/ApprovedClass";
 import AdminHome from "../pages/Dashboard/Admin/AdminHome";
 import ManageClasses from "../pages/Dashboard/Admin/ManageClasses";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import UpdateUser from "../pages/Dashboard/Admin/UpdateUser";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +126,30 @@ const router = createBrowserRouter([
         path: "manage-classes",
         element: <ManageClasses />,
       },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+    
+      {
+        path: "/dashboard/update-user/:id",
+        element: <UpdateUser />,
+        loader: ({ params }) => {
+          const url = `http://localhost:3000/users/${params.id}`;
+          const token = localStorage.getItem('token');
+          if (!token) {
+            console.error('Bearer token not found in local storage');
+            return Promise.reject(new Error('Bearer token not found in local storage'));
+          }
+          return fetch(url, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json());
+        }
+      }
     ],
   },
 ]);

@@ -35,10 +35,10 @@ const EnrolledClasses = () => {
           className="w-full h-40 sm:h-52 object-cover"
         />
         <div className="p-4">
-          <h1 className="text-xl font-semibold">{item.classes.name}</h1>
-          <p className="text-gray-600">{item.classes.instructorName}</p>
+          <h1 className="text-xl font-semibold">{item?.classes?.name}</h1>
+          <p className="text-gray-600">{item?.classes?.instructorName}</p>
           <div className="flex justify-between items-center mt-4">
-            <p className="font-bold text-gray-500">{item.classes.price}$</p>
+            <p className="font-bold text-gray-500">{item?.classes?.price}$</p>
             <button className="bg-secondary text-white px-3 py-2 rounded-xl font-bold shadow-lg">
               View
             </button>
