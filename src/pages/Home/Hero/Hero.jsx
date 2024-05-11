@@ -1,5 +1,6 @@
 import React from "react";
 import bgImg1 from "../../../assets/banner/banner3.png";
+import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div
@@ -16,15 +17,12 @@ const Hero = () => {
           </div>
           <div className="md:w-1/2">
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi
-              iste suscipit fuga accusamus reprehenderit obcaecati eum voluptate
-              aut natus cumque. Culpa explicabo eius numquam esse sunt pariatur
-              eaque ipsa tenetur?
+            Explore Boundless Learning Opportunities at Our Online School! Enroll Today for Engaging Classes, Expert Guidance, and Personalized Education. Join a Vibrant Community Committed to Excellence. Ignite Your Curiosity, Achieve Your Goals, and Shape Your Future with Us!
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-5 mt-6 mb-3">
             <button className="px-7 py-3 rounded-lg font-bold bg-secondary  ">Join Today </button>
-            <button className="px-7 py-3 rounded-lg hover:bg-secondary font-bold uppercase border ">View Courses</button>
+            <button className="px-7 py-3 rounded-lg hover:bg-secondary font-bold uppercase border "><Link to="/classes">View Classes</Link></button>
           </div>
         </div>
       </div>

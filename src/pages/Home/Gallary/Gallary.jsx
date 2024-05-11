@@ -9,7 +9,7 @@ const Gallary = () => {
   return (
     <div className="md:w-[80%] mx-auto my-28">
       <div className="mb-16">
-        <h1 className="text-5xl font-bold text-center">Our Gallary</h1>
+        <h1 className="text-5xl font-bold text-center">Our Gallery</h1>
       </div>
       {/* img container */}
       <div className="md:grid grid-cols-2 items-center justify-center  gap-4">

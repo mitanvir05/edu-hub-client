@@ -45,7 +45,7 @@ const Register = () => {
 
             if (user.email && user.displayName) {
               return axios
-                .post("http://localhost:3000/new-user", userImp)
+                .post("https://edu-hub1-server.vercel.app/new-user", userImp)
                 .then(() => {
                   setError('');
                   navigate("/");
@@ -77,7 +77,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlineUser className="inline-block mr-2 text-lg" />
-                Name
+                Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -95,7 +95,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlineMail className="inline-block mr-2 text-lg" />
-                Email
+                Email<span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -115,7 +115,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlineLock className="inline-block mr-2 text-lg" />
-                Password
+                Password<span className="text-red-500">*</span>
               </label>
               <input
                 type="password"
@@ -133,7 +133,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlineLock className="inline-block mr-2 text-lg" />
-                Confirm Password
+                Confirm Password<span className="text-red-500">*</span>
               </label>
               <input
                 type="password"
@@ -157,7 +157,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlinePhone className="inline-block mr-2 text-lg" />
-                Phone
+                Phone<span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
@@ -175,7 +175,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlinePicture className="inline-block mr-2 text-lg" />
-                Photo URl
+                Photo URl<span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -194,7 +194,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <AiOutlineUser className="inline-block mr-2 text-lg" />
-                Gender
+                Gender<span className="text-red-500">*</span>
               </label>
               <select
                 {...register("gender", { required: true })}
@@ -213,7 +213,7 @@ const Register = () => {
                 className=" block text-gray-700 font-bold mb-2"
               >
                 <FaMapMarkerAlt className="inline-block mr-2 text-lg" />
-                Address
+                Address<span className="text-red-500">*</span>
               </label>
               <textarea
                 {...register("address", { required: true })}
@@ -238,7 +238,7 @@ const Register = () => {
           </div>
         </form>
         <p className="text-center mt-3">
-          Already have and account?
+          Already have an account?
           <Link className="underline text-secondary ml-1" to="/login">
             Login
           </Link>

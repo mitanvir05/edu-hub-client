@@ -21,7 +21,7 @@ const MyClass = () => {
   return (
     <div>
       <div className="my-9">
-        <h1 className="text-4xl text-center font-bold">My Class</h1>
+        <h1 className="text-4xl text-center font-bold">My <span className="text-secondary">Class</span></h1>
         <div>
           <p className="text-[12px] text-center my-2">
             Here is your all class details.
@@ -97,7 +97,7 @@ const MyClass = () => {
                         <button className="px-3 bg-green-500 font-bold py-1 text-white w-full my-3 rounded-lg ">
                           View Details
                         </button>
-                        <button onClick={()=>navigate(`/dashboard/update/${cls._id}`)} className="px-3 bg-secondary font-bold py-1 text-white w-full rounded-lg">
+                        <button  className="px-3 bg-secondary font-bold py-1 text-white w-full rounded-lg">
                           Update
                         </button>
                       </div>

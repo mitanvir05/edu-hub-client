@@ -4,6 +4,7 @@ import Gallary from './Home/Gallary/Gallary';
 import PopularClasses from './Home/PopularClasses/PopularClasses';
 import PopularTeacher from './Home/PopularTeacher/PopularTeacher';
 import useAuth from '../hooks/useAuth';
+import MyFooter from '../components/MyFooter';
 
 const Home = () => {
     //const{user}=useAuth()
@@ -16,7 +17,9 @@ const Home = () => {
                 <Gallary/>
                 <PopularClasses/>
                 <PopularTeacher/>
+                
             </div>
+            <MyFooter/>
         </section>
     );
 };

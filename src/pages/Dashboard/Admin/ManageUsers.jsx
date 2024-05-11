@@ -29,7 +29,8 @@ const ManageUsers = () => {
       .delete(`/delete-user/${id}`)
       .then((res) => {
         alert("User deleted successfully");
-        console.log(res.data);
+        // Update users state after successful deletion
+        setUsers(users.filter(user => user._id !== id));
       })
       .catch((err) => {
         console.log(err);
@@ -44,20 +45,36 @@ const ManageUsers = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const getUserRoleColor = (role) => {
+    switch (role) {
+      case "admin":
+        return "text-green-500";
+      case "instructor":
+        return "text-yellow-500";
+      case "user":
+        return "text-blue-500";
+      default:
+        return "text-gray-500";
+    }
+  };
+
   return (
     <div className="p-5">
       <h1 className="text-4xl text-center font-bold my-7">Manage Users</h1>
       <div className="table-container">
         <table className="w-full table-fixed">
+          {/* Table Header */}
           <thead className="border-b font-medium dark:border-neutral-500 p-5">
             <tr className="p-">
               <th className="text-left font-semibold">#</th>
               <th className="text-left font-semibold">Name</th>
+              <th className="text-left font-semibold">Email</th>
               <th className="text-left font-semibold">Role</th>
               <th className="text-left font-semibold">Update</th>
               <th className="text-left font-semibold">Delete</th>
             </tr>
           </thead>
+          {/* Table Body */}
           <tbody>
             {currentUsers.length === 0 ? (
               <tr>
@@ -71,7 +88,8 @@ const ManageUsers = () => {
                   <tr>
                     <td>{indexOfFirstUser + index + 1}</td>
                     <td>{user?.name}</td>
-                    <td>{user?.role}</td>
+                    <td>{user?.email}</td>
+                    <td className={getUserRoleColor(user?.role)}>{user?.role}</td>
                     <td>
                       <span
                         onClick={() =>
@@ -103,39 +121,19 @@ const ManageUsers = () => {
         </table>
       </div>
       {/* Pagination */}
-      <ul className="flex justify-center mt-5">
-        <li
-          className={`cursor-pointer mx-2 ${
-            currentPage === 1 ? "opacity-50 pointer-events-none" : ""
-          }`}
-          onClick={() => setCurrentPage(currentPage - 1)}
-        >
-          Previous
-        </li>
-        {Array.from({ length: Math.ceil(users.length / usersPerPage) }).map(
-          (_, index) => (
-            <li
-              key={index}
-              className={`cursor-pointer mx-2 ${
-                currentPage === index + 1 ? "text-blue-500" : ""
-              }`}
-              onClick={() => setCurrentPage(index + 1)}
-            >
-              {index + 1}
-            </li>
-          )
-        )}
-        <li
-          className={`cursor-pointer mx-2 ${
-            currentPage === Math.ceil(users.length / usersPerPage)
-              ? "opacity-50 pointer-events-none"
-              : ""
-          }`}
-          onClick={() => setCurrentPage(currentPage + 1)}
-        >
-          Next
-        </li>
-      </ul>
+      <div className="flex justify-center mt-5">
+        {[...Array(Math.ceil(users.length / usersPerPage))].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => paginate(index + 1)}
+            className={`mx-2 px-3 py-1 rounded ${
+              currentPage === index + 1 ? "bg-green-500" : "bg-gray-200"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

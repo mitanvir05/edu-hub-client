@@ -56,7 +56,7 @@ const AddClass = () => {
   return (
     <div>
       <div className="my-10">
-        <h1 className="text-center text-3xl font-bold">Add Your Course Here</h1>
+        <h1 className="text-center text-3xl font-bold">Add Your <span className="text-secondary">Class</span> Here</h1>
       </div>
       <form
         onSubmit={handleSubmit}
@@ -186,7 +186,7 @@ const AddClass = () => {
             className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:ring-blue-500"
             type="text"
             required
-            placeholder="Your course intro video"
+            placeholder="Your class intro video"
             name="videoLink"
           />
         </div>
@@ -196,14 +196,14 @@ const AddClass = () => {
             className="mb-2 block text-gray-700 font-bold"
             htmlFor="description"
           >
-            Description About Your Course
+            Description About Your Class
           </label>
 
           <textarea
             className="w-full px-4 py-2 border border-secondary rounded-lg focus:outline-none focus:ring-blue-500"
             type="text"
             required
-            placeholder="Your course description"
+            placeholder="Your class description"
             name="description"
             rows={4}
           />
@@ -216,7 +216,7 @@ const AddClass = () => {
             type="submit"
             className="bg-secondary w-full hover:bg-red-500 text-white font-bold py-2 px-4 rounded"
           >
-            Add Course
+            Add Class
           </button>
         </div>
       </form>

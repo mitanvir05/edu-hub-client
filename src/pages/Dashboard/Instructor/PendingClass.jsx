@@ -25,7 +25,7 @@ const PendingClass = () => {
 
   return (
     <div>
-        <h1 className="text-4xl font-bold text-center my-20">Pending <span className="text-secondary">Course</span></h1>
+        <h1 className="text-4xl font-bold text-center my-20">Pending <span className="text-secondary">Class</span></h1>
         <div className="p-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {pendingClasses.length === 0 ? (
         <p className="text-4xl font-bold text-center my-20">

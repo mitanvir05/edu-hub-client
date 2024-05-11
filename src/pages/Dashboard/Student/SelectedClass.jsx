@@ -88,7 +88,7 @@ const SelectedClass = () => {
   return (
     <div>
       <div className="my-6 text-center">
-        <h1 className="text-4xl  font-bold">My Selected Class</h1>
+        <h1 className="text-4xl  font-bold">My Selected <span className="text-secondary">Class</span></h1>
       </div>
       <div className="h-screen py-8 ">
         <div className="container mx-auto px-4">
@@ -162,10 +162,7 @@ const SelectedClass = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            {/* right div */}
-            <div className="md:w-1/5 fixed right-3">
+              <div className=" ">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-lg font-semibold mb-4">Summary</h2>
                 <div className="flex justify-between mb-2 ">
@@ -198,6 +195,10 @@ const SelectedClass = () => {
                 </button>
               </div>
             </div>
+            </div>
+
+            {/* right div */}
+            
           </div>
         </div>
       </div>

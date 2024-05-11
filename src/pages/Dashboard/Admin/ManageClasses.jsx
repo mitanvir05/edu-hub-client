@@ -13,7 +13,6 @@ const ManageClasses = () => {
   const [page, setPage] = useState(1);
   const [paginatedData, setPaginatedData] = useState([]);
   const itemPerPage = 5;
-  const totalPage = Math.ceil(classes.length / itemPerPage);
 
   useEffect(() => {
     axiosFetch
@@ -25,67 +24,65 @@ const ManageClasses = () => {
   }, []);
 
   useEffect(() => {
-    let lastIndex = page * itemPerPage;
-    const firstIndex = lastIndex - itemPerPage;
-    if (lastIndex > classes.length) {
-      lastIndex = classes.length;
-    }
-
+    const firstIndex = (page - 1) * itemPerPage;
+    const lastIndex = firstIndex + itemPerPage;
     const currentData = classes.slice(firstIndex, lastIndex);
     setPaginatedData(currentData);
-  }, [page, totalPage]);
+  }, [page, classes]);
+
+  const totalPages = Math.ceil(classes.length / itemPerPage);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   const handleApprove = (id) => {
     axiosSecure
       .patch(`/change-status/${id}`, { status: "approved" })
-      .then((res) => {
-        alert("Course approve succesfully");
-        console.log(res.data);
-        const updateClass = classes.map((cls) =>
-          cls._id === id ? { ...cls, status: "approved" } : cls
-        );
-        setClasses(updateClass);
+      .then(() => {
+        alert("Course approved successfully");
+        // Fetch updated data
+        axiosFetch.get("classes-manage").then((res) => {
+          setClasses(res.data);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleReject = (id) => {
-    Swal.fire({
+  const handleReject = async (id) => {
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, deny it it!",
-    }).then(async (result) => { // Make the function async
-      if (result.isConfirmed) {
-        try {
-          const res = await axiosSecure.patch(`/change-status/${id}`, {
-            status: "pending",
-          });
-          if (res.data.modifiedCount > 0) {
-            Swal.fire({
-              title: "Rejected!",
-              text: "Course has been rejected.",
-              icon: "success",
-            });
-            const updateClass = classes.map((cls) =>
-              cls._id === id ? { ...cls, status: "pending" } : cls
-            );
-            setClasses(updateClass);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
+      confirmButtonText: "Yes, deny it!",
     });
+    if (result.isConfirmed) {
+      try {
+        await axiosSecure.patch(`/change-status/${id}`, {
+          status: "pending",
+        });
+        Swal.fire({
+          title: "Rejected!",
+          text: "Course has been rejected.",
+          icon: "success",
+        });
+        // Fetch updated data
+        axiosFetch.get("classes-manage").then((res) => {
+          setClasses(res.data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
-    <div>
+    <div className=" p-5">
       <h1 className="text-4xl text-secondary text-center my-10">
         Manage Class
       </h1>
@@ -100,57 +97,70 @@ const ManageClasses = () => {
             <th className="text-left font-semibold">Actions</th>
           </tr>
         </thead>
-        {/* Move tbody here */}
         <tbody>
-          {classes.length === 0 ? (
-            <tr>
-              <td colSpan="5" className="text-center text-2xl font-bold">
-                No Classes Found
-              </td>
-            </tr>
-          ) : (
-            paginatedData.map((cls, index) => {
-              const letIndex = (page - 1) * itemPerPage + index + 1;
-              return (
-                <tr key={cls._id}>
-                  <td className="py-4">{letIndex}</td>
-                  <td className="py-4">
-                    <div className="flex items-center">
-                      <img src={cls?.image} alt="" className="w-16 h-16 mr-4" />
-                      <span>{cls?.name}</span>
-                    </div>
-                  </td>
-                  <td>{cls?.instructorName}</td>
-                  <td className="py-4 ">{cls?.status}</td>
-                  <td className="py-4">
-                    <p className="text-green-800 text-sm">
-                      {moment(cls.submitted).format("YYYY-MM-DD")}
-                    </p>
-                  </td>
-                  <td className="py-6 flex gap-3">
-                    <button
-                      onClick={() => handleApprove(cls._id)}
-                      className="text-[12px] cursor-pointer disabled:bg-green-500 bg-green-500 py-1 rounded-md px-2 text-white"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      disabled={
-                        cls.status === "rejected" || cls.status === "checking"
-                      }
-                      onClick={() => handleReject(cls._id)}
-                      className="text-[12px] cursor-pointer disabled:bg-red-500 bg-red-500 py-1 rounded-md px-2 text-white"
-                    >
-                      Reject
-                    </button>
-                    
-                  </td>
-                </tr>
-              );
-            })
-          )}
-        </tbody>
+  {paginatedData.map((cls, index) => {
+    const indexOnPage = (page - 1) * itemPerPage + index + 1;
+    const statusColor =
+      cls.status === "approved" ? "text-green-500" : "text-red-500";
+    return (
+      <>
+        <tr key={cls._id}>
+          <td className="py-4">{indexOnPage}</td>
+          <td className="py-4">
+            <div className="flex items-center">
+              <img src={cls?.image} alt="" className="w-16 h-16 mr-4" />
+              <span>{cls?.name}</span>
+            </div>
+          </td>
+          <td>{cls?.instructorName}</td>
+          <td className={`py-4 ${statusColor}`}>{cls?.status}</td>
+          <td className="py-4">
+            <p className="text-green-800 text-sm">
+              {moment(cls?.submitted).format("YYYY-MM-DD")}
+            </p>
+          </td>
+          <td className="py-6 flex gap-3">
+            <button
+              onClick={() => handleApprove(cls._id)}
+              className="text-[12px] cursor-pointer disabled:bg-green-500 bg-green-500 py-1 rounded-md px-2 text-white"
+            >
+              Approve
+            </button>
+            <button
+              disabled={
+                cls.status === "rejected" || cls.status === "checking"
+              }
+              onClick={() => handleReject(cls._id)}
+              className="text-[12px] cursor-pointer disabled:bg-red-500 bg-red-500 py-1 rounded-md px-2 text-white"
+            >
+              Reject
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan="6"><hr/></td>
+        </tr>
+      </>
+    );
+  })}
+</tbody>
+
       </table>
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4">
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`mx-1 px-3 py-1 rounded ${
+                page === index + 1 ? "bg-green-500" : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

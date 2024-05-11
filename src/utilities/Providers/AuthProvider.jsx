@@ -100,7 +100,7 @@ const googleLogin = async () => {
       setUser(user);
       if (user) {
         axios
-          .post("http://localhost:3000/api/set-token", {
+          .post("https://edu-hub1-server.vercel.app/api/set-token", {
             email: user.email,
             name: user.displayName,
           })

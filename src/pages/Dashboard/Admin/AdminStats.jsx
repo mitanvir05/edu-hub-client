@@ -23,7 +23,7 @@ const AdminStats = ({ users }) => {
   console.log(data);
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4 mt-8 sm:grid-cols-4 sm:px-8">
+      <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-4 sm:px-8">
         <div className="flex bg-white borderr rounded-sm overflow-hidden shadow">
           <div className="p-4 bg-lime-500">
             <HiOutlineUserGroup className="h-12 w-12 text-white"/>

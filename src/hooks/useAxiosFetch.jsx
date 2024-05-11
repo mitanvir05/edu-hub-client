@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const useAxiosFetch = () => {
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://edu-hub1-server.vercel.app",
   });
 
   // Interceptors

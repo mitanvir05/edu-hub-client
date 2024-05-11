@@ -34,7 +34,7 @@ const Instructors = () => {
       </div> */}
       {instructors ? (
         <>
-          <div className="mt-20 grid mb-28 md:grid-cols-2 lg:grid-cols-4 w-[90%] mx-auto justify-center">
+          <div className="mt-20  grid mb-28 md:grid-cols-2 lg:grid-cols-3 w-[90%] mx-auto justify-center">
             {instructors?.map((instructor, i) => (
               <div className="flex ml-3 dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md">
                 <div className="flex-col flex gap-6 md:gap-8">

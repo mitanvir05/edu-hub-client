@@ -25,7 +25,7 @@ const EnrolledClasses = () => {
   return (
    
     <div>
-  <h1 className="text-2xl my-6 p-3">Enrolled Classes</h1>
+  <h1 className="text-2xl font-bold my-6 p-5">Enrolled <span className="text-secondary">Class</span></h1>
   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 p-5">
     {data.map((item, index) => (
       <div key={index} className="bg-white shadow-md rounded-3xl overflow-hidden">

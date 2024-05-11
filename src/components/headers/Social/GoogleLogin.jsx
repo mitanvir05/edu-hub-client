@@ -26,7 +26,7 @@ const GoogleLogin = () => {
           };
           if (user.email && user.displayName) {
             return axios
-              .post("http://localhost:3000/new-user", userImp)
+              .post("https://edu-hub1-server.vercel.app/new-user", userImp)
               .then(() => {
                 navigate("/");
                 return "Registration Successful";

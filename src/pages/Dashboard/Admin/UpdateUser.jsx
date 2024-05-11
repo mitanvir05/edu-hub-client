@@ -1,6 +1,6 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosFetch from "../../../hooks/useAxiosFetch";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
@@ -10,6 +10,7 @@ const UpdateUser = () => {
   console.log(userCredentials);
   const axiosFetch = useAxiosFetch();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   //console.log(user)
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ const UpdateUser = () => {
       .then((res) => {
         if(res.data.modifiedCount>0){
             alert("Updated Successfully")
+            navigate("/dashboard/manage-users")
         }
         console.log(res.data);
       })
@@ -101,7 +103,7 @@ const UpdateUser = () => {
                   <div className="mb-6">
                     <label
                       className="mb-2 block text-gray-700 font-bold"
-                      htmlFor="phone"
+                      htmlFor="skills"
                     >
                       Skill
                     </label>
@@ -110,7 +112,7 @@ const UpdateUser = () => {
                       type="text"
                       required
                       placeholder="Skill"
-                      name="skill"
+                      name="skills"
                       value={userCredentials?.skill}
                     />
                   </div>
@@ -137,7 +139,7 @@ const UpdateUser = () => {
                 <div className="mb-6">
                   <label
                     className="mb-2 block text-gray-700 font-bold"
-                    htmlFor="photo"
+                    htmlFor="photoURL"
                   >
                     Photo URL
                   </label>
@@ -146,7 +148,7 @@ const UpdateUser = () => {
                     type="text"
                     required
                     placeholder="Photo Url"
-                    name="photo"
+                    name="photoURL"
                     value={userCredentials?.photo}
                   />
                 </div>
@@ -218,7 +220,7 @@ const UpdateUser = () => {
               <div className="mb-6">
                 <label
                   className="mb-2 block text-gray-700 font-bold"
-                  htmlFor="description"
+                  htmlFor="about"
                 >
                   About user
                 </label>
@@ -228,7 +230,7 @@ const UpdateUser = () => {
                   type="text"
                   required
                   placeholder="About user"
-                  name="description"
+                  name="about"
                   rows={4}
                 />
               </div>
@@ -240,7 +242,7 @@ const UpdateUser = () => {
                   type="submit"
                   className="bg-secondary w-full hover:bg-red-500 text-white font-bold py-2 px-4 rounded"
                 >
-                  Add Course
+                  Update Role
                 </button>
               </div>
             </form>

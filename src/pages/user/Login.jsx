@@ -17,10 +17,9 @@ const Login = () => {
     const formData = Object.fromEntries(data);
     console.log(formData);
     login(formData.email, formData.password)
-
       .then(() => {
-        alert("Login successful")
-         navigate(location.state?.form || "/dashboard");
+        alert("Login successful");
+        navigate(location.state?.form || "/dashboard");
       })
       .catch((err) => {
         setError(err.code);
@@ -30,10 +29,12 @@ const Login = () => {
   return (
     <div className="mx-auto  max-w-screen-xl px-4 py-18 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold text-center text-secondary sm:text-3xl">
-        Sign In to Expereice EDU HUB
+        Sign In to Experience EduHub
       </h1>
       <p className="mx-auto mt-4 max-w-md text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, modi.
+        Join Our Community of Learners and Educators Today. Dive into a Dynamic
+        Learning Environment Tailored to Your Needs. Let's Start the Journey
+        Together!
       </p>
       <div className="mx-auto max-w-xl mb-0 mt-6 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -86,9 +87,9 @@ const Login = () => {
             Sign in
           </button>
           <p className="text-center text-sm text-gray-600">
-            No account?
-            <Link className="underline" to="/register">
-              Sign Up
+            Do not have an account? {""}
+            <Link className="underline text-secondary ml-1" to="/register">
+              Register
             </Link>
           </p>
         </form>

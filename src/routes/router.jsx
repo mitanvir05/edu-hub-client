@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         element: <SingleClass />,
 
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/class/${params.id}`),
+          fetch(`https://edu-hub1-server.vercel.app/class/${params.id}`),
       },
     ],
   },
@@ -140,7 +140,7 @@ const router = createBrowserRouter([
         path: "/dashboard/update-user/:id",
         element: <UpdateUser />,
         loader: ({ params }) => {
-          const url = `http://localhost:3000/users/${params.id}`;
+          const url = `https://edu-hub1-server.vercel.app/users/${params.id}`;
           const token = localStorage.getItem('token');
           if (!token) {
             console.error('Bearer token not found in local storage');

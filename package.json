@@ -22,6 +22,7 @@
     "axios": "^1.4.0",
     "create-file-list": "^1.1.0",
     "firebase": "^9.22.1",
+    "flowbite-react": "^0.9.0",
     "framer-motion": "^10.12.16",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
